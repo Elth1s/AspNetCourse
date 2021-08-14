@@ -1,0 +1,52 @@
+﻿@model AdminLTE.Models.LocalCommunity
+@{
+    ViewData["Title"] = "Create local community";
+    Layout = "~/Views/Shared/AdminLTE/_Layout.cshtml";
+}
+@{
+    var title = "Create Local Community";
+}
+
+<form method="post" enctype="multipart/form-data">
+    @if (Model.Id != 0)
+    {
+        title = "Edit Local Community";
+        <input asp-for="Id" hidden />
+    }
+    <div class="border p-3">
+        <div class="form-group row">
+            <h2 class="text-info pl-3">@title</h2>
+        </div>
+        <div class="row">
+            <div class="col-8">
+                <div class="form-group row">
+                    <div class="col-4">
+                        <label asp-for="Name"></label>
+                    </div>
+                    <div class="col-8">
+                        <input class="form-control" asp-for="Name" />
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-7 offset-5">
+                        <div class="row">
+                            @if (Model.Id != 0)
+                            {
+                                <input type="submit" class="btn btn-info w-25 mr-3" value="Update" />
+                            }
+                            else
+                            {
+                                <input type="submit" class="btn btn-primary w-25 mr-3" value="Create" />
+                            }
+                            <a asp-action="Index" class="btn btn-success w-25">Back</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+
+
