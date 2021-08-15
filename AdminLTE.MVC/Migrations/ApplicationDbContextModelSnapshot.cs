@@ -26,9 +26,6 @@ namespace AdminLTE.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Image")
                         .HasColumnType("nvarchar(max)");
 
@@ -53,7 +50,7 @@ namespace AdminLTE.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
+                    b.HasIndex("LocalCommunityId");
 
                     b.ToTable("Employees");
                 });
@@ -99,6 +96,15 @@ namespace AdminLTE.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "96ab4491-183e-4135-908a-9c6458f1445f",
+                            ConcurrencyStamp = "8f797dce-0dc1-44bf-b07a-d3a4261e99b1",
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -188,6 +194,24 @@ namespace AdminLTE.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "5292a946-bcf4-45c0-90d6-e341a4674912",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "4a1e9167-cc9d-486b-af34-79632394bc66",
+                            Email = "dg646726@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "DG646726@GMAIL.COM",
+                            NormalizedUserName = "DG646726@GMAIL.COM",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGzUEbebHpUZpIWko1xKd65/QOl5QcL+W9pJDRvN1TWnRm15EZBsXYwdrJcj46rFjQ==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f026aec8-c874-4cb4-868f-171a6e03dc9a",
+                            TwoFactorEnabled = false,
+                            UserName = "dg646726@gmail.com"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -217,12 +241,10 @@ namespace AdminLTE.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
                         .HasColumnType("nvarchar(max)");
@@ -259,12 +281,10 @@ namespace AdminLTE.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("nvarchar(128)")
-                        .HasMaxLength(128);
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
@@ -278,7 +298,9 @@ namespace AdminLTE.Migrations
                 {
                     b.HasOne("AdminLTE.Models.LocalCommunity", "LocalCommunity")
                         .WithMany("Employees")
-                        .HasForeignKey("CategoryId");
+                        .HasForeignKey("LocalCommunityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

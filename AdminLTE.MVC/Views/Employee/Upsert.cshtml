@@ -12,90 +12,65 @@
         title = "Edit Employee data";
         <input asp-for="Employee.Id" hidden />
     }
-    <div class="border p-3">
-        <div class="form-group row">
-            <h2 class="text-info pl-3">@title</h2>
-        </div>
+    <section class="content">
         <div class="row">
-            <div class="col-8">
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="Employee.Name"></label>
+            <div class="col-md-6">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h3 class="card-title">@title</h3>
                     </div>
-                    <div class="col-8">
-                        <input class="form-control" asp-for="Employee.Name" />
-                        <span class="text-danger" asp-validation-for="Employee.Name"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="Employee.Surname"></label>
-                    </div>
-                    <div class="col-8">
-                        <input class="form-control" asp-for="Employee.Surname" />
-                        <span class="text-danger" asp-validation-for="Employee.Surname"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="Employee.Patronymic"></label>
-                    </div>
-                    <div class="col-8">
-                        <input class="form-control" asp-for="Employee.Patronymic" />
-                        <span class="text-danger" asp-validation-for="Employee.Patronymic"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="Employee.Phone"></label>
-                    </div>
-                    <div class="col-8">
-                        <input class="form-control" asp-for="Employee.Phone" />
-                        <span class="text-danger" asp-validation-for="Employee.Phone"></span>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        Image
-                    </div>
-                    <div class="col-8">
-                        <input type="file" name="files" id="upload" multiple class="form-control" />
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-4">
-                        <label asp-for="Employee.LocalCommunityId"></label>
-                    </div>
-                    <div class="col-8">
-                        <select asp-for="Employee.LocalCommunityId" asp-items="@Model.LocalCommunitySelectList" class="form-control">
-                            <option selected disabled>--Select Category--</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    <div class="col-7 offset-5">
-                        <div class="row">
-                            @if (Model.Employee.Id != 0)
-                            {
-                                <input type="submit" class="btn btn-info w-25 mr-3" value="Update" />
-                            }
-                            else
-                            {
-                                <input type="submit" class="btn btn-primary w-25 mr-3" value="Create" />
-                            }
-                            <a asp-action="Index" class="btn btn-success w-25">Back</a>
+                    <div class="card-body" style="display: block;">
+
+                        <div class="form-group">
+                            <label asp-for="Employee.Name"></label>
+                            <input class="form-control" asp-for="Employee.Name" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Employee.Surname"></label>
+                            <input class="form-control" asp-for="Employee.Surname" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Employee.Patronymic"></label>
+                            <input class="form-control" asp-for="Employee.Patronymic" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Employee.Phone"></label>
+                            <input class="form-control" asp-for="Employee.Phone" />
+                        </div>
+                        <div class="form-group row">
+                            <label asp-for="Employee.Image"></label>
+                            <input type="file" name="files" id="upload" multiple class="form-control" style="height:44px" />
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Employee.LocalCommunityId"></label>
+                            <select asp-for="Employee.LocalCommunityId" asp-items="@Model.LocalCommunitySelectList" class="form-control">
+                                <option selected disabled>--Select Category--</option>
+                            </select>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-4">
-                @if (Model.Employee.Id != 0)
+                <div class="col-12">
+                    <a asp-action="Index" class="btn btn-secondary">Cancel</a>
+                    @if (Model.Employee.Id != 0)
                     {
+                        <input type="submit" class="btn btn-success float-right" value="Update" />
+                    }
+                    else
+                    {
+                        <input type="submit" class="btn btn-success float-right" value="Create" />
+                    }
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="card card-secondary">
+                    @if(Model.Employee.Id != 0)
+                    { 
                         <img src="@AdminLTE.ENV.ImagePath@Model.Employee.Image" />
                     }
+                </div>
             </div>
         </div>
-    </div>
+    </section>
 </form>
 
 @section Scripts{

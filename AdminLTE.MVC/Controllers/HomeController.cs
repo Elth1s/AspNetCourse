@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using AdminLTE.MVC.Models;
 using Microsoft.AspNetCore.Authorization;
+using AdminLTE.MVC.Data;
 
 namespace AdminLTE.MVC.Controllers
 {

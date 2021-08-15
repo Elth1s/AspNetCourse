@@ -37,7 +37,7 @@
                 {
                     <li class="nav-item">
                         <a href="#" class="nav-link">
-                            <i class="nav-icon fas fa-users"></i>
+                            <i class="nav-icon fas fa-map-marked-alt"></i>
                             <p>
                                 Local Community
                                 <i class="right fas fa-angle-left"></i>
@@ -56,19 +56,6 @@
                                     <p>Add</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a asp-controller="LocalCommunity" asp-action="Upsert" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Edit</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a asp-controller="LocalCommunity" asp-action="Index" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Remove</p>
-                                </a>
-                            </li>
-
                         </ul>
                     </li>
                     <li class="nav-item">
@@ -87,25 +74,20 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a asp-controller="Employee" asp-action="Index" class="nav-link">
+                                <a asp-controller="Employee" asp-action="Upsert" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Add</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a asp-controller="Employee" asp-action="Index" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Edit</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a asp-controller="Employee" asp-action="Index" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Remove</p>
-                                </a>
-                            </li>
-
                         </ul>
+                    </li>
+                    <li class="nav-item ">
+                        <a asp-area="Identity" asp-page="/Account/Register" class="nav-link">
+                            <i class="nav-icon fas fa-user-plus"></i>
+                            <p>
+                                Add Admin
+                            </p>
+                        </a>
                     </li>
                     <li class="nav-item ">
                         <a asp-controller="Home" asp-action="Privacy" class="nav-link @Url.MakeActiveClass("home","privacy")">

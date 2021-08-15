@@ -47,6 +47,19 @@ namespace AdminLTE.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LocalCommunities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LocalCommunities", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -92,8 +105,8 @@ namespace AdminLTE.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    ProviderKey = table.Column<string>(nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<string>(nullable: false)
                 },
@@ -137,8 +150,8 @@ namespace AdminLTE.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
-                    Name = table.Column<string>(maxLength: 128, nullable: false),
+                    LoginProvider = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -151,6 +164,40 @@ namespace AdminLTE.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "Employees",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(nullable: false),
+                    Surname = table.Column<string>(nullable: false),
+                    Patronymic = table.Column<string>(nullable: false),
+                    Phone = table.Column<string>(nullable: false),
+                    Image = table.Column<string>(nullable: true),
+                    LocalCommunityId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Employees", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Employees_LocalCommunities_LocalCommunityId",
+                        column: x => x.LocalCommunityId,
+                        principalTable: "LocalCommunities",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[] { "96ab4491-183e-4135-908a-9c6458f1445f", "8f797dce-0dc1-44bf-b07a-d3a4261e99b1", "Admin", "ADMIN" });
+
+            migrationBuilder.InsertData(
+                table: "AspNetUsers",
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { "5292a946-bcf4-45c0-90d6-e341a4674912", 0, "4a1e9167-cc9d-486b-af34-79632394bc66", "dg646726@gmail.com", false, false, null, "DG646726@GMAIL.COM", "DG646726@GMAIL.COM", "AQAAAAEAACcQAAAAEGzUEbebHpUZpIWko1xKd65/QOl5QcL+W9pJDRvN1TWnRm15EZBsXYwdrJcj46rFjQ==", null, false, "f026aec8-c874-4cb4-868f-171a6e03dc9a", false, "dg646726@gmail.com" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -190,6 +237,11 @@ namespace AdminLTE.Migrations
                 column: "NormalizedUserName",
                 unique: true,
                 filter: "[NormalizedUserName] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Employees_LocalCommunityId",
+                table: "Employees",
+                column: "LocalCommunityId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -210,10 +262,16 @@ namespace AdminLTE.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Employees");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "LocalCommunities");
         }
     }
 }
